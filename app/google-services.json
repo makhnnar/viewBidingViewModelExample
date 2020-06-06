@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "453373253739-hkrmienk8mud1bgmcme1971cml51hv7l.apps.googleusercontent.com",
+          "client_id": "453373253739-4h0jidqn1apjhrdkti7hfbqr2p25isq7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.easyappsolution.testloginfirebase",
-            "certificate_hash": "a9ad51ced971bb89a54287561ec2454da6e9dc74"
+            "certificate_hash": "38f07c0679b405fc4539f1dbb1e529dcde43249e"
           }
         },
         {

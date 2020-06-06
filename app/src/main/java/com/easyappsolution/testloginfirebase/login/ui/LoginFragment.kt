@@ -14,6 +14,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import com.easyappsolution.testloginfirebase.R
 import com.easyappsolution.testloginfirebase.databinding.FragmentLoginBinding
+import com.easyappsolution.testloginfirebase.firebaserepository.FirebaseRepository
 
 class LoginFragment : Fragment() {
 
@@ -100,6 +101,8 @@ class LoginFragment : Fragment() {
                 binding.password.text.toString()
             )
         }
+        var firebase = FirebaseRepository()
+        firebase.testImpl()
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {

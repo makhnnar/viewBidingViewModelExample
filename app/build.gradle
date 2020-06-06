@@ -16,10 +16,30 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        debug {
+            keyAlias 'firebase'
+            keyPassword 'firebase'
+            storeFile file("testfirebase.jks")
+            storePassword 'firebase'
+        }
+        release {
+            keyAlias 'firebase'
+            keyPassword 'firebase'
+            storeFile file("testfirebase.jks")
+            storePassword 'firebase'
+        }
+    }
+
     buildTypes {
+        debug {
+            debuggable true
+        }
         release {
             minifyEnabled false
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     buildFeatures {
