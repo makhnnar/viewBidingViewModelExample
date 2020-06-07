@@ -16,6 +16,11 @@ import com.easyappsolution.testloginfirebase.R
 import com.easyappsolution.testloginfirebase.databinding.FragmentLoginBinding
 import com.easyappsolution.testloginfirebase.firebaserepository.FirebaseRepository
 
+/**
+ * username = phgomez674
+ * password = 123456
+ * 
+ * */
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
@@ -105,7 +110,6 @@ class LoginFragment : Fragment() {
 
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome) + model.displayName
-        // TODO : initiate successful logged in experience
         val appContext = context?.applicationContext ?: return
         Toast.makeText(appContext, welcome, Toast.LENGTH_LONG).show()
     }
