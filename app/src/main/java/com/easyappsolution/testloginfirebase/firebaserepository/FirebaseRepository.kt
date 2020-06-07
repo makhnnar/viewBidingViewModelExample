@@ -16,10 +16,9 @@ class FirebaseRepository{
         fireDbInstance = firebaseDatabase.reference
     }
 
-    fun testImpl(){
-        fireDbInstance.child("msj").setValue("Hello, World!")
-    }
-
+    /**
+     * We gets users data using username as key on firebase data base
+     * */
     fun getLoginData(userName:String,onLoginData:OnLoginData){
         fireDbInstance.child("users").child(userName).addListenerForSingleValueEvent(
             object : ValueEventListener{
@@ -31,7 +30,6 @@ class FirebaseRepository{
                     val pass = p0.getValue(String::class.java)
                     onLoginData.onSuccess(pass)
                 }
-
             }
         )
     }
