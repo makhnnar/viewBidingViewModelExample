@@ -1,5 +1,7 @@
 package com.easyappsolution.testloginfirebase.login.data
 
+import android.util.Log
+import com.easyappsolution.testloginfirebase.firebaserepository.FirebaseRepository
 import com.easyappsolution.testloginfirebase.login.data.model.LoggedInUser
 import java.io.IOException
 
@@ -8,17 +10,49 @@ import java.io.IOException
  */
 class LoginDataSource {
 
-    fun login(username: String, password: String): Result<LoggedInUser> {
+    private var firebase = FirebaseRepository()
+
+
+    fun login(
+        username: String,
+        password: String,
+        onLoginUser: OnLoginUser
+    ) {
         try {
-            // TODO: handle loggedInUser authentication
-            val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), "Jane Doe")
-            return Result.Success(fakeUser)
+            firebase.getLoginData(
+                username,
+                object : FirebaseRepository.OnLoginData{
+                    override fun onSuccess(realPass: String?) {
+                        if(realPass == password){
+                            onLoginUser.loginAccepted(
+                                LoggedInUser(
+                                    java.util.UUID.randomUUID().toString(),
+                                    username
+                                )
+                            )
+                        }else{
+                            onLoginUser.loginDenied("User or Pass wrong")
+                        }
+                    }
+
+                    override fun onFailed() {
+                        onLoginUser.loginDenied("Check your network connection")
+                    }
+
+                }
+            )
         } catch (e: Throwable) {
-            return Result.Error(IOException("Error logging in", e))
+
         }
     }
 
     fun logout() {
         // TODO: revoke authentication
     }
+
+    interface OnLoginUser{
+        fun loginAccepted(loggedInUser:LoggedInUser)
+        fun loginDenied(reason:String)
+    }
+
 }

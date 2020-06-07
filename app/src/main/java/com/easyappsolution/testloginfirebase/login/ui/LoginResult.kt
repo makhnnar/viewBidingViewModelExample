@@ -5,5 +5,5 @@ package com.easyappsolution.testloginfirebase.login.ui
  */
 data class LoginResult(
     val success: LoggedInUserView? = null,
-    val error: Int? = null
+    val error: String? = null
 )

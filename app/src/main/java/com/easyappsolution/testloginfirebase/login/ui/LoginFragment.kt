@@ -101,8 +101,6 @@ class LoginFragment : Fragment() {
                 binding.password.text.toString()
             )
         }
-        var firebase = FirebaseRepository()
-        firebase.testImpl()
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
@@ -112,7 +110,7 @@ class LoginFragment : Fragment() {
         Toast.makeText(appContext, welcome, Toast.LENGTH_LONG).show()
     }
 
-    private fun showLoginFailed(@StringRes errorString: Int) {
+    private fun showLoginFailed(errorString: String) {
         val appContext = context?.applicationContext ?: return
         Toast.makeText(appContext, errorString, Toast.LENGTH_LONG).show()
     }

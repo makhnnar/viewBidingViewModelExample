@@ -5,8 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
 import com.easyappsolution.testloginfirebase.R
+import com.easyappsolution.testloginfirebase.login.data.LoginDataSource
 import com.easyappsolution.testloginfirebase.login.data.LoginRepository
 import com.easyappsolution.testloginfirebase.login.data.Result
+import com.easyappsolution.testloginfirebase.login.data.model.LoggedInUser
 
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
@@ -19,14 +21,21 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
     fun login(username: String, password: String) {
         // can be launched in a separate asynchronous job
-        val result = loginRepository.login(username, password)
+        loginRepository.login(
+            username,
+            password,
+            object : LoginDataSource.OnLoginUser{
+                override fun loginAccepted(loggedInUser: LoggedInUser) {
+                    _loginResult.value =
+                        LoginResult(success = LoggedInUserView(displayName = loggedInUser.displayName))
+                }
 
-        if (result is Result.Success) {
-            _loginResult.value =
-                LoginResult(success = LoggedInUserView(displayName = result.data.displayName))
-        } else {
-            _loginResult.value = LoginResult(error = R.string.login_failed)
-        }
+                override fun loginDenied(reason: String) {
+                    _loginResult.value = LoginResult(error = reason)
+                }
+
+            }
+        )
     }
 
     fun loginDataChanged(username: String, password: String) {
