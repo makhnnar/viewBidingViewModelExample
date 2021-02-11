@@ -1,17 +1,13 @@
-package com.easyappsolution.testloginfirebase.login.data
+package com.easyappsolution.testloginfirebase.ui.repositories
 
-import android.util.Log
 import com.easyappsolution.testloginfirebase.firebaserepository.FirebaseRepository
-import com.easyappsolution.testloginfirebase.login.data.model.LoggedInUser
-import java.io.IOException
+import com.easyappsolution.testloginfirebase.ui.models.LoggedInUser
+import java.util.*
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
-class LoginDataSource {
-
-    private var firebase = FirebaseRepository()
-
+class LoginDataSource(private var firebase:FirebaseRepository) {
 
     fun login(
         username: String,
@@ -26,7 +22,7 @@ class LoginDataSource {
                         if(realPass == password){
                             onLoginUser.loginAccepted(
                                 LoggedInUser(
-                                    java.util.UUID.randomUUID().toString(),
+                                    UUID.randomUUID().toString(),
                                     username
                                 )
                             )
@@ -51,7 +47,7 @@ class LoginDataSource {
     }
 
     interface OnLoginUser{
-        fun loginAccepted(loggedInUser:LoggedInUser)
+        fun loginAccepted(loggedInUser: LoggedInUser)
         fun loginDenied(reason:String)
     }
 

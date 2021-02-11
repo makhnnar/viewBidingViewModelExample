@@ -1,6 +1,6 @@
-package com.easyappsolution.testloginfirebase.login.data
+package com.easyappsolution.testloginfirebase.ui.repositories
 
-import com.easyappsolution.testloginfirebase.login.data.model.LoggedInUser
+import com.easyappsolution.testloginfirebase.ui.models.LoggedInUser
 
 /**
  * Class that requests authentication and user information from the remote data source and

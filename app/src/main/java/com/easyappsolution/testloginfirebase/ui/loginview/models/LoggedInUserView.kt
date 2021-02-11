@@ -1,4 +1,4 @@
-package com.easyappsolution.testloginfirebase.login.ui
+package com.easyappsolution.testloginfirebase.ui.loginview.models
 
 /**
  * User details post authentication that is exposed to the UI

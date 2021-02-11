@@ -1,8 +1,7 @@
-package com.easyappsolution.testloginfirebase.login.ui
+package com.easyappsolution.testloginfirebase.ui.loginview
 
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.text.Editable
@@ -14,7 +13,9 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import com.easyappsolution.testloginfirebase.R
 import com.easyappsolution.testloginfirebase.databinding.FragmentLoginBinding
-import com.easyappsolution.testloginfirebase.firebaserepository.FirebaseRepository
+import com.easyappsolution.testloginfirebase.ui.loginview.models.LoggedInUserView
+import com.easyappsolution.testloginfirebase.ui.loginview.viewmodel.LoginViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
  * username = phgomez674
@@ -23,46 +24,46 @@ import com.easyappsolution.testloginfirebase.firebaserepository.FirebaseReposito
  * */
 class LoginFragment : Fragment() {
 
-    private var _binding: FragmentLoginBinding? = null
+    private lateinit var binding: FragmentLoginBinding
     // This property is only valid between onCreateView and
     // onDestroyView.
-    private val binding get() = _binding!!
 
-    private lateinit var loginViewModel: LoginViewModel
+    private val loginViewModel: LoginViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        this.binding = FragmentLoginBinding.inflate(
+            inflater,
+            container,
+            false
+        )
         val view = binding.root
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory())
-            .get(LoginViewModel::class.java)
-
         loginViewModel.loginFormState.observe(this,
             Observer { loginFormState ->
                 if (loginFormState == null) {
                     return@Observer
                 }
-                binding.login.isEnabled = loginFormState.isDataValid
+                this.binding.login.isEnabled = loginFormState.isDataValid
                 loginFormState.usernameError?.let {
-                    binding.username.error = getString(it)
+                    this.binding.username.error = getString(it)
                 }
                 loginFormState.passwordError?.let {
-                    binding.password.error = getString(it)
+                    this.binding.password.error = getString(it)
                 }
             })
 
         loginViewModel.loginResult.observe(this,
             Observer { loginResult ->
                 loginResult ?: return@Observer
-                binding.loading.visibility = View.GONE
+                this.binding.loading.visibility = View.GONE
                 loginResult.error?.let {
                     showLoginFailed(it)
                 }
@@ -82,28 +83,28 @@ class LoginFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable) {
                 loginViewModel.loginDataChanged(
-                    binding.username.text.toString(),
-                    binding.password.text.toString()
+                    this@LoginFragment.binding.username.text.toString(),
+                    this@LoginFragment.binding.password.text.toString()
                 )
             }
         }
-        binding.username.addTextChangedListener(afterTextChangedListener)
-        binding.password.addTextChangedListener(afterTextChangedListener)
-        binding.password.setOnEditorActionListener { _, actionId, _ ->
+        this.binding.username.addTextChangedListener(afterTextChangedListener)
+        this.binding.password.addTextChangedListener(afterTextChangedListener)
+        this.binding.password.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 loginViewModel.login(
-                    binding.username.text.toString(),
-                    binding.password.text.toString()
+                    this.binding.username.text.toString(),
+                    this.binding.password.text.toString()
                 )
             }
             false
         }
 
-        binding.login.setOnClickListener {
-            binding.loading.visibility = View.VISIBLE
+        this.binding.login.setOnClickListener {
+            this.binding.loading.visibility = View.VISIBLE
             loginViewModel.login(
-                binding.username.text.toString(),
-                binding.password.text.toString()
+                this.binding.username.text.toString(),
+                this.binding.password.text.toString()
             )
         }
     }
@@ -121,7 +122,6 @@ class LoginFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 
 }

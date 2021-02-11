@@ -1,4 +1,4 @@
-package com.easyappsolution.testloginfirebase.login.data
+package com.easyappsolution.testloginfirebase.ui.models
 
 /**
  * A generic class that holds a value with its loading status.

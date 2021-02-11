@@ -1,6 +1,9 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlinx-serialization'
+}
 
 android {
     compileSdkVersion 29
@@ -42,6 +45,20 @@ android {
             signingConfig signingConfigs.release
         }
     }
+    packagingOptions {
+        pickFirst("META-INF/kotlinx-io.kotlin_module")
+        pickFirst("META-INF/atomicfu.kotlin_module")
+        pickFirst("META-INF/kotlinx-coroutines-io.kotlin_module")
+        pickFirst("META-INF/kotlinx-coroutines-core.kotlin_module")
+        pickFirst("META-INF/kotlinx-serialization-runtime.kotlin_module")
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
     buildFeatures {
         viewBinding = true
     }
@@ -61,6 +78,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.3.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    //koin
+    implementation "org.koin:koin-android-viewmodel:$koin_version"
 
 }
 

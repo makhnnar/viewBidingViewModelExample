@@ -1,17 +1,21 @@
-package com.easyappsolution.testloginfirebase.login.ui
+package com.easyappsolution.testloginfirebase.ui.loginview.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
 import com.easyappsolution.testloginfirebase.R
-import com.easyappsolution.testloginfirebase.login.data.LoginDataSource
-import com.easyappsolution.testloginfirebase.login.data.LoginRepository
-import com.easyappsolution.testloginfirebase.login.data.Result
-import com.easyappsolution.testloginfirebase.login.data.model.LoggedInUser
+import com.easyappsolution.testloginfirebase.ui.repositories.LoginDataSource
+import com.easyappsolution.testloginfirebase.ui.repositories.LoginRepository
+import com.easyappsolution.testloginfirebase.ui.models.LoggedInUser
+import com.easyappsolution.testloginfirebase.ui.loginview.models.LoggedInUserView
+import com.easyappsolution.testloginfirebase.ui.loginview.models.LoginFormState
+import com.easyappsolution.testloginfirebase.ui.loginview.models.LoginResult
 
 
-class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
+class LoginViewModel(
+    private val loginRepository: LoginRepository
+) : ViewModel() {
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm

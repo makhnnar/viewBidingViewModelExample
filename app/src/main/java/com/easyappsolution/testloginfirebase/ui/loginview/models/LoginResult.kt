@@ -1,4 +1,4 @@
-package com.easyappsolution.testloginfirebase.login.ui
+package com.easyappsolution.testloginfirebase.ui.loginview.models
 
 /**
  * Authentication result : success (user details) or error message.
