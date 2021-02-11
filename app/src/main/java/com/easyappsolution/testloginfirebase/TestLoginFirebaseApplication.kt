@@ -4,7 +4,7 @@ import android.app.Application
 import com.easyappsolution.testloginfirebase.di.firebaseModule
 import com.easyappsolution.testloginfirebase.di.loginDataRepository
 import com.easyappsolution.testloginfirebase.di.loginDataSourceModule
-import com.easyappsolution.testloginfirebase.ui.loginview.di.loginViewModelListModule
+import com.easyappsolution.testloginfirebase.ui.signin.di.loginViewModelListModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

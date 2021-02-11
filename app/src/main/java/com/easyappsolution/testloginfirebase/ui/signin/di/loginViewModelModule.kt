@@ -1,6 +1,6 @@
-package com.easyappsolution.testloginfirebase.ui.loginview.di
+package com.easyappsolution.testloginfirebase.ui.signin.di
 
-import com.easyappsolution.testloginfirebase.ui.loginview.viewmodel.LoginViewModel
+import com.easyappsolution.testloginfirebase.ui.signin.viewmodel.LoginViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

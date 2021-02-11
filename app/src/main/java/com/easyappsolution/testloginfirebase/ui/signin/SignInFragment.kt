@@ -1,7 +1,6 @@
-package com.easyappsolution.testloginfirebase.ui.loginview
+package com.easyappsolution.testloginfirebase.ui.signin
 
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.text.Editable
@@ -11,10 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.easyappsolution.testloginfirebase.R
-import com.easyappsolution.testloginfirebase.databinding.FragmentLoginBinding
-import com.easyappsolution.testloginfirebase.ui.loginview.models.LoggedInUserView
-import com.easyappsolution.testloginfirebase.ui.loginview.viewmodel.LoginViewModel
+import com.easyappsolution.testloginfirebase.databinding.FragmentSigninBinding
+import com.easyappsolution.testloginfirebase.ui.signin.models.LoggedInUserView
+import com.easyappsolution.testloginfirebase.ui.signin.viewmodel.LoginViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
@@ -22,11 +22,9 @@ import org.koin.android.viewmodel.ext.android.viewModel
  * password = 123456
  * 
  * */
-class LoginFragment : Fragment() {
+class SignInFragment : Fragment() {
 
-    private lateinit var binding: FragmentLoginBinding
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    private lateinit var binding: FragmentSigninBinding
 
     private val loginViewModel: LoginViewModel by viewModel()
 
@@ -35,7 +33,7 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        this.binding = FragmentLoginBinding.inflate(
+        this.binding = FragmentSigninBinding.inflate(
             inflater,
             container,
             false
@@ -83,8 +81,8 @@ class LoginFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable) {
                 loginViewModel.loginDataChanged(
-                    this@LoginFragment.binding.username.text.toString(),
-                    this@LoginFragment.binding.password.text.toString()
+                    this@SignInFragment.binding.username.text.toString(),
+                    this@SignInFragment.binding.password.text.toString()
                 )
             }
         }
@@ -106,6 +104,9 @@ class LoginFragment : Fragment() {
                 this.binding.username.text.toString(),
                 this.binding.password.text.toString()
             )
+        }
+        this.binding.signupBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
         }
     }
 

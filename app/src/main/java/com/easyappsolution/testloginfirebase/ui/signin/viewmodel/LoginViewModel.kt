@@ -1,4 +1,4 @@
-package com.easyappsolution.testloginfirebase.ui.loginview.viewmodel
+package com.easyappsolution.testloginfirebase.ui.signin.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,9 +8,9 @@ import com.easyappsolution.testloginfirebase.R
 import com.easyappsolution.testloginfirebase.ui.repositories.LoginDataSource
 import com.easyappsolution.testloginfirebase.ui.repositories.LoginRepository
 import com.easyappsolution.testloginfirebase.ui.models.LoggedInUser
-import com.easyappsolution.testloginfirebase.ui.loginview.models.LoggedInUserView
-import com.easyappsolution.testloginfirebase.ui.loginview.models.LoginFormState
-import com.easyappsolution.testloginfirebase.ui.loginview.models.LoginResult
+import com.easyappsolution.testloginfirebase.ui.signin.models.LoggedInUserView
+import com.easyappsolution.testloginfirebase.ui.signin.models.LoginFormState
+import com.easyappsolution.testloginfirebase.ui.signin.models.LoginResult
 
 
 class LoginViewModel(
