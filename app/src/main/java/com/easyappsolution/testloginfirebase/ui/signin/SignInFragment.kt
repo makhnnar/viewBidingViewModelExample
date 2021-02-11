@@ -17,11 +17,6 @@ import com.easyappsolution.testloginfirebase.ui.signin.models.LoggedInUserView
 import com.easyappsolution.testloginfirebase.ui.signin.viewmodel.LoginViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
-/**
- * username = phgomez674
- * password = 123456
- * 
- * */
 class SignInFragment : Fragment() {
 
     private lateinit var binding: FragmentSigninBinding

@@ -2,12 +2,15 @@ package com.easyappsolution.testloginfirebase.ui.repositories
 
 import com.easyappsolution.testloginfirebase.firebaserepository.FirebaseRepository
 import com.easyappsolution.testloginfirebase.ui.models.LoggedInUser
+import com.easyappsolution.testloginfirebase.ui.models.User
 import java.util.*
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
-class LoginDataSource(private var firebase:FirebaseRepository) {
+class LoginDataSource(
+    private var firebaseRepository:FirebaseRepository
+) {
 
     fun login(
         username: String,
@@ -15,19 +18,22 @@ class LoginDataSource(private var firebase:FirebaseRepository) {
         onLoginUser: OnLoginUser
     ) {
         try {
-            firebase.getLoginData(
+            firebaseRepository.getLoginData(
                 username,
-                object : FirebaseRepository.OnLoginData{
-                    override fun onSuccess(realPass: String?) {
-                        if(realPass == password){
-                            onLoginUser.loginAccepted(
-                                LoggedInUser(
-                                    UUID.randomUUID().toString(),
-                                    username
+                object :
+                    FirebaseRepository.OnLoginUser {
+                    override fun onSuccess(realUser: User?) {
+                        realUser?.let {
+                            if(realUser.password == password){
+                                onLoginUser.loginAccepted(
+                                    LoggedInUser(
+                                        UUID.randomUUID().toString(),
+                                        username
+                                    )
                                 )
-                            )
-                        }else{
-                            onLoginUser.loginDenied("User or Pass wrong")
+                            }else{
+                                onLoginUser.loginDenied("User or Pass wrong")
+                            }
                         }
                     }
 
@@ -38,7 +44,7 @@ class LoginDataSource(private var firebase:FirebaseRepository) {
                 }
             )
         } catch (e: Throwable) {
-
+            onLoginUser.loginDenied("Check your network connection")
         }
     }
 
