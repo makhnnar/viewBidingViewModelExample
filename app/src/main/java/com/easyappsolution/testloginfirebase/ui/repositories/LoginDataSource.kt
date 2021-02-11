@@ -23,17 +23,18 @@ class LoginDataSource(
                 object :
                     FirebaseRepository.OnLoginUser {
                     override fun onSuccess(realUser: User?) {
-                        realUser?.let {
+                        if(realUser!=null){
                             if(realUser.password == password){
                                 onLoginUser.loginAccepted(
                                     LoggedInUser(
-                                        UUID.randomUUID().toString(),
-                                        username
+                                        realUser
                                     )
                                 )
                             }else{
                                 onLoginUser.loginDenied("User or Pass wrong")
                             }
+                        }else{
+                            onLoginUser.loginDenied("User or Pass wrong")
                         }
                     }
 

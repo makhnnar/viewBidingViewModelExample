@@ -31,7 +31,7 @@ class LoginViewModel(
             object : LoginDataSource.OnLoginUser{
                 override fun loginAccepted(loggedInUser: LoggedInUser) {
                     _loginResult.value =
-                        LoginResult(success = LoggedInUserView(displayName = loggedInUser.displayName))
+                        LoginResult(success = LoggedInUserView(user = loggedInUser.user))
                 }
 
                 override fun loginDenied(reason: String) {
